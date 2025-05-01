@@ -168,7 +168,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*")); // ✅ Allow all origins
+        configuration.setAllowedOriginPatterns(List.of("https://safegaurd-platform.vercel.app/","https://safeguard-chatbot-nfqx6icmykrbkyhxkrqbfs.streamlit.app")); // ✅ Allow all origins
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // Important if you use authentication cookies or Authorization header
