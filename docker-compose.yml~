@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mentalhealth-mysql
+    environment:
+      MYSQL_DATABASE: mentalhealth_db
+      MYSQL_USER: mentalhealth
+      MYSQL_PASSWORD: ${MYSQL_USER_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mentalhealth-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  springboot:
+    build: .
+    container_name: mentalhealth-springboot
+    volumes:
+      - .:/opt/app
+      - ~/.m2:/root/.m2
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mentalhealth_db
+      SPRING_DATASOURCE_USERNAME: mentalhealth
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_USER_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - mentalhealth-network
+    restart: unless-stopped
+
+
+volumes:
+  mysql_data:
+
+networks:
+  mentalhealth-network:
+    driver: bridge
+

@@ -1,0 +1,11 @@
+package com.mentalhealth.services.user;
+
+import com.mentalhealth.dto.user.UserCreateDTO;
+import jakarta.validation.Valid;
+
+public interface IUserService {
+
+
+    void registerUser(@Valid UserCreateDTO userCreateDTO);
+
+}

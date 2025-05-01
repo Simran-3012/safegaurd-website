@@ -1,0 +1,31 @@
+package com.mentalhealth.dto.user;
+
+import com.mentalhealth.enums.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDTO {
+
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    @Size(min = 3, max = 30, message = "Last name must be between 3 and 30 characters")
+    private String lastName;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email address")
+    private String email;
+
+    private Role role;
+
+}
