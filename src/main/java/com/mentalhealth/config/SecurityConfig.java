@@ -141,9 +141,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/signup", "/doctor/signup", "/auth/login").permitAll()
-                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/doctor/**").hasAuthority("ROLE_DOCTOR")
+                        .requestMatchers("/api/user/signup", "/api/doctor/signup", "/api/auth/login").permitAll()
+                        .requestMatchers("/api/user/**").hasAuthority("ROLE_USER")
+                        .requestMatchers("/api/doctor/**").hasAuthority("ROLE_DOCTOR")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
@@ -169,7 +169,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of(
-            "https://safegaurd-platform.vercel.app"
+            "https://safegaurd-platform.vercel.app","http://localhost:63343"
             )); // ✅ Allow all origins
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
