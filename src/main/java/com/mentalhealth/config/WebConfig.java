@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")  // More specific than "/**"
-                .allowedOrigins("http://localhost:63343","https://safegaurd-platform.vercel.app")
+                .allowedOrigins("http://localhost:63343")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Add OPTIONS!
                 .allowedHeaders("*")
                 .allowCredentials(true)
